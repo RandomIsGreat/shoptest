@@ -42,14 +42,15 @@ $result = $goods->fetchAll(PDO::FETCH_ASSOC);
         <td>Добавить в корзину</td>
         <td>Оставить комментарий</td>
     </tr>
+    <?php foreach ($result as $item): ?>
     <tr>
-        <td><?= $result[0]['name'] ?></td>
-        <td><?= $result[0]['category_name'] ?></td>
-        <td><?= $result[0]['description']?></td>
-        <td><?= $result[0]['price']?></td>
-        <td><a href="addtoorder.php?id=<?= $result[0]['id'] ?>">Добавить в корзину</a></td>
+        <td><?= $item['name'] ?></td>
+        <td><?= $item['category_name'] ?></td>
+        <td><?= $item['description']?></td>
+        <td><?= $item['price']?></td>
+        <td><a href="addtoorder.php?id=<?= $item['id'] ?>">Добавить в корзину</a></td>
         <td>
-            <FORM action="addcomment.php?id=<?= $result[0]['id']?>" method="post">
+            <FORM action="addcomment.php?id=<?= $item['id']?>" method="post">
                 <p>Комментарий</p><input type="text" name="comment"><br>
                 <p>Оценка</p><select name="rating">
                     <option value="1">1</option>
@@ -62,86 +63,7 @@ $result = $goods->fetchAll(PDO::FETCH_ASSOC);
             </FORM>
         </td>
     </tr>
-    <tr>
-        <td><?= $result[1]['name'] ?></td>
-        <td><?= $result[1]['category_name']?></td>
-        <td><?= $result[1]['description']?></td>
-        <td><?= $result[1]['price']?></td>
-        <td><a href="addtoorder.php?id=<?= $result[1]['id'] ?>">Добавить в корзину</a></td>
-        <td>
-            <FORM action="addcomment.php?id=<?= $result[1]['id']?>" method="post">
-                <p>Комментарий</p><input type="text" name="comment"><br>
-                <p>Оценка</p><select name="rating">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option selected value="5">5</option>
-                </select>
-                <input type="submit" value="Оставить комментарий">
-            </FORM>
-        </td>
-    </tr>
-    <tr>
-        <td><?= $result[2]['name'] ?></td>
-        <td><?= $result[2]['category_name']?></td>
-        <td><?= $result[2]['description']?></td>
-        <td><?= $result[2]['price']?></td>
-        <td><a href="addtoorder.php?id=<?= $result[2]['id'] ?>">Добавить в корзину</a></td>
-        <td>
-            <FORM action="addcomment.php?id=<?= $result[2]['id']?>" method="post">
-                <p>Комментарий</p><input type="text" name="comment"><br>
-                <p>Оценка</p><select name="rating">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option selected value="5">5</option>
-                </select>
-                <input type="submit" value="Оставить комментарий">
-            </FORM>
-        </td>
-    </tr>
-    <tr>
-        <td><?= $result[3]['name'] ?></td>
-        <td><?= $result[3]['category_name']?></td>
-        <td><?= $result[3]['description']?></td>
-        <td><?= $result[3]['price']?></td>
-        <td><a href="addtoorder.php?id=<?= $result[3]['id'] ?>">Добавить в корзину</a></td>
-        <td>
-            <FORM action="addcomment.php?id=<?= $result[3]['id']?>" method="post">
-                <p>Комментарий</p><input type="text" name="comment"><br>
-                <p>Оценка</p><select name="rating">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option selected value="5">5</option>
-                </select>
-                <input type="submit" value="Оставить комментарий">
-            </FORM>
-        </td>
-    </tr>
-    <tr>
-        <td><?= $result[4]['name'] ?></td>
-        <td><?= $result[4]['category_name']?></td>
-        <td><?= $result[4]['description']?></td>
-        <td><?= $result[4]['price']?></td>
-        <td><a href="addtoorder.php?id=<?= $result[4]['id'] ?>">Добавить в корзину</a></td>
-        <td>
-            <FORM action="addcomment.php?id=<?= $result[4]['id']?>" method="post">
-                <p>Комментарий</p><input type="text" name="comment"><br>
-                <p>Оценка</p><select name="rating">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option selected value="5">5</option>
-                </select>
-                <input type="submit" value="Оставить комментарий">
-            </FORM>
-        </td>
-    </tr>
+    <?php endforeach; ?>
 </table>
 <div><a href="index.php?to=<?=$goodOnPage[':startfor']+5 ?>">Следующие 5 товаров</a><br></div>
 <div><a href="addadress.php">Добавить адрес для доставки</a><br></div>
