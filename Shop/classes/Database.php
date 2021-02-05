@@ -27,8 +27,11 @@ class Database
      */
     protected function __construct()
     {
+        $xml = simplexml_load_file("http://localhost/Shop/Shop/dataBaseConnect.xml");
+        $dsn = "{$xml->dbtype}:dbname={$xml->dbname};host={$xml->host}";
+        $username = (string)$xml->username;
         try {
-            $this->pdo = new PDO('mysql:dbname=shopdb2;host=127.0.0.1', 'root');
+            $this->pdo = new PDO($dsn, $username);
         } catch (PDOException $e) {
             echo 'подключение к базе данных не удалось'.$e->getMessage();
         }
