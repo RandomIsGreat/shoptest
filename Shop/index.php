@@ -21,7 +21,9 @@ if (!isset($_GET['to'])) {
     ] ;
 }
 
-$goods = $db->query('SELECT good.id, good.name, category.name As category_name, good.description, good.price FROM `good` INNER JOIN `category` ON good.category_id = category.id ORDER BY good.price LIMIT :startfor, :nextto', $goodOnPage);
+$goods = $db->query('SELECT good.id, good.name, category.name As category_name, good.description, good.price 
+                        FROM `good` INNER JOIN `category` ON good.category_id = category.id 
+                        ORDER BY good.price LIMIT :startfor, :nextto', $goodOnPage);
 $result = $goods->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -46,12 +48,12 @@ $result = $goods->fetchAll(PDO::FETCH_ASSOC);
     <tr>
         <td><?= $item['name'] ?></td>
         <td><?= $item['category_name'] ?></td>
-        <td><?= $item['description']?></td>
-        <td><?= $item['price']?></td>
+        <td><?= $item['description'] ?></td>
+        <td><?= $item['price'] ?></td>
         <td><a href="addtoorder.php?id=<?= $item['id'] ?>">Добавить в корзину</a></td>
         <td>
             <FORM action="addcomment.php?id=<?= $item['id']?>" method="post">
-                <p>Комментарий</p><input type="text" name="comment"><br>
+                <p>Комментарий</p><input autocomplete="off" type="text" name="comment"><br>
                 <p>Оценка</p><select name="rating">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -62,6 +64,7 @@ $result = $goods->fetchAll(PDO::FETCH_ASSOC);
                 <input type="submit" value="Оставить комментарий">
             </FORM>
         </td>
+        <td><a href="gooddescription.php?id=<?= $item['id']?>">Описание товара</a></td>
     </tr>
     <?php endforeach; ?>
 </table>

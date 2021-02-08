@@ -40,7 +40,7 @@ class Connector
         unset($_COOKIE['connected']);
         setcookie('connected', $tmp , time()+3600 );
         $_SESSION['connected'] = $tmp;
-        $_SESSION['id'] = $id;
+        $_SESSION['user_id'] = $id;
         $_SESSION['user'] = $this->name;
         $_SESSION['password'] = $this->password;
         header("Location: index.php");
