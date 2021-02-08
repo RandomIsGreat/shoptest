@@ -13,7 +13,9 @@ class UserCreator extends Connector
             header('Location: new_account.php');
         } else {
             $db->query('INSERT INTO `user` (email, password) VALUES (:email, :password)', $inputParams);
-            $this->connectedRedirect();
+            $sth = $db->query('SELECT `id` FROM `user` ORDER BY create_on DESC LIMIT 1');
+            $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+            $this->connectedRedirect($result[0]['id']);
         }
     }
 }
