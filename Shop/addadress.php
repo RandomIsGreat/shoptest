@@ -12,7 +12,8 @@
             ':country'=>$_POST['country'],
             ':street'=>$_POST['street'],
             ':house_number'=>$_POST['house_number'],
-            ':apartment_number'=>$_POST['apartment_number']
+            ':apartment_number'=>$_POST['apartment_number'],
+            ':user_id'=>$_SESSION['user_id']
         ];
         $db = Database::getInstance();
         $adress = new AdressCreator($_SESSION['user'], $_SESSION['password'], $db, $params);
