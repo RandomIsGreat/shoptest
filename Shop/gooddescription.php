@@ -13,9 +13,12 @@ $sth = $db->query('SELECT good.name, category.name As category_name, good.descri
                        WHERE good.id = :id', [':id'=>$_GET['id']]);
 $good = $sth->fetchAll(PDO::FETCH_ASSOC);
 
-$sth = $db->query('SELECT user.email, comment.id, comment.comment, comment.rating FROM comment INNER JOIN `user` ON comment.user_id = user.id WHERE comment.good_id = :id',[':id'=>$_GET['id']]);
+$sth = $db->query('SELECT user.email, comment.id, comment.comment, comment.rating FROM comment
+                      INNER JOIN `user` ON comment.user_id = user.id WHERE comment.good_id = :id
+                      ORDER BY comment.create_on DESC',[':id'=>$_GET['id']]);
 $comments = $sth->fetchAll(PDO::FETCH_ASSOC);
-
+$sth = $db->query('SELECT AVG(comment.rating) as avgrating FROM comment WHERE comment.good_id = :id', [':id'=>$_GET['id']]);
+$avgRating = $sth->fetchAll(PDO::FETCH_ASSOC);
 /*$i = 0;
 foreach ($comments as $item) {
 
@@ -43,6 +46,7 @@ foreach ($id as $item) {
         <td>Категория</td>
         <td>Описание</td>
         <td>Цена</td>
+        <td>Средняя оценка</td>
         <td>Добавить в корзину</td>
     </tr>
     <tr>
@@ -50,9 +54,23 @@ foreach ($id as $item) {
         <td><?= $good[0]['category_name'] ?></td>
         <td><?= $good[0]['description'] ?></td>
         <td><?= $good[0]['price'] ?></td>
+        <td><?= round($avgRating[0]['avgrating'], 2) ?></td>
         <td><a href="addtoorder.php?id=<?= $_GET['id'] ?>">Добавить в корзину</a></td>
     </tr>
 </table>
+<br>
+<p>Добавить комментарий</p>
+<FORM action="addcomment.php?id=<?= $_GET['id']?>" method="post">
+    <p>Комментарий</p><input autocomplete="off" type="text" name="comment"><br>
+    <p>Оценка</p><select name="rating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option selected value="5">5</option>
+    </select>
+    <input type="submit" value="Оставить комментарий">
+</FORM>
 <br>
 <p>Комментарии</p>
 <table border="2px">
@@ -71,5 +89,6 @@ foreach ($id as $item) {
     </tr>
     <?php endforeach; ?>
 </table>
+<div><a href="index.php">На главную</a><br></div>
 </body>
 </html>
