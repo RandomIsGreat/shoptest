@@ -27,3 +27,4 @@ $db->query('INSERT INTO `comment` (comment, rating, user_id, good_id)
                 VALUES (:comment, :rating, :user_id, :good_id)',
                 [':comment'=>$_POST['comment'], ':rating'=>$_POST['rating'],
                  ':user_id'=>$_SESSION['user_id'], ':good_id'=>$_GET['id']] );
+header("Location: gooddescription.php?id={$_GET['id']}");

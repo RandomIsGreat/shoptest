@@ -51,19 +51,6 @@ $result = $goods->fetchAll(PDO::FETCH_ASSOC);
         <td><?= $item['description'] ?></td>
         <td><?= $item['price'] ?></td>
         <td><a href="addtoorder.php?id=<?= $item['id'] ?>">Добавить в корзину</a></td>
-        <td>
-            <FORM action="addcomment.php?id=<?= $item['id']?>" method="post">
-                <p>Комментарий</p><input autocomplete="off" type="text" name="comment"><br>
-                <p>Оценка</p><select name="rating">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option selected value="5">5</option>
-                </select>
-                <input type="submit" value="Оставить комментарий">
-            </FORM>
-        </td>
         <td><a href="gooddescription.php?id=<?= $item['id']?>">Описание товара</a></td>
     </tr>
     <?php endforeach; ?>
