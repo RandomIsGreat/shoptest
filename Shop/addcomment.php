@@ -1,9 +1,7 @@
 <?php
 include_once 'classes/Database.php';
 session_start();
-if (!isset($_COOKIE['connected'])) {
-    include_once 'connector.php';
-} else if ($_SESSION['connected'] != $_COOKIE['connected']) {
+if (!isset($_SESSION['user_id'])) {
     include_once 'connector.php';
 }
 //через POST передается содержание комментария, через гет - номер товара
@@ -23,8 +21,11 @@ $nid = [
 ];
 $db->query('INSERT INTO `user_comments` (comment_id. good_id) VALUES (:comment_id, :good_id)',$nid);
 */
-$db->query('INSERT INTO `comment` (comment, rating, user_id, good_id) 
-                VALUES (:comment, :rating, :user_id, :good_id)',
-                [':comment'=>$_POST['comment'], ':rating'=>$_POST['rating'],
-                 ':user_id'=>$_SESSION['user_id'], ':good_id'=>$_GET['id']] );
-header("Location: gooddescription.php?id={$_GET['id']}");
+$_POST['rating'] = intval($_POST['rating']);
+if (is_int($_POST['rating']) && ($_POST['rating'] >= 1) && ($_POST['rating'] <= 5)) {
+    $db->query('INSERT INTO `comment` (comment, rating, user_id, good_id) 
+                VALUES (?, ?, ?, ?)',
+        [$_POST['comment'], $_POST['rating'],
+             $_SESSION['user_id'], $_GET['id']]);
+    header("Location: gooddescription.php?id={$_GET['id']}");
+}

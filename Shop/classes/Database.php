@@ -33,7 +33,7 @@ class Database
         try {
             $this->pdo = new PDO($dsn, $username);
         } catch (PDOException $e) {
-            echo 'подключение к базе данных не удалось'.$e->getMessage();
+            echo 'Can\'t connect to database'.$e->getMessage();
         }
     }
 
@@ -42,12 +42,10 @@ class Database
      * @param array $inputParams
      * @return bool|PDOStatement
      */
-    public function query($sql, $inputParams = [])
+    public function query($sql, $inputParams)
     {
         $this->pdo->beginTransaction();
         try {
-            //пока убираем проверку типов для записи
-            //$this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
             $sth = $this->pdo->prepare($sql);
             if (isset($inputParams[':startfor'])) {
                 $sth->bindValue(':startfor',$inputParams[':startfor'],PDO::PARAM_INT);
@@ -56,11 +54,17 @@ class Database
                 $this->pdo->commit();
                 return $sth;
             }
+            /*$i = 1;
+            foreach ($inputParams as $item)
+            {
+                $sth->bindValue($i, $item, PDO::PARAM_STR);
+                $i++;
+            }*/
             $sth->execute($inputParams);
             $this->pdo->commit();
             return $sth;
         } catch (PDOException $e) {
-            echo 'неккоректный запрос'.$e->getMessage();
+            echo 'Invalid query'.$e->getMessage();
             $this->pdo->rollBack();
         }
     }

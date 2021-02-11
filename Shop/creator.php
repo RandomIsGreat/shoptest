@@ -5,7 +5,7 @@ include_once 'classes/UserCreator.php';
 session_start();
 $db = Database::getInstance();
 $userName = strtolower($_POST['user']);
-$user = new UserCreator($userName, $_POST['pass'], $db, [':email'=>$userName, ':password'=>$_POST['pass']]);
+$user = new UserCreator($userName, $_POST['pass'], $db, [$userName, $_POST['pass']]);
 $user->setQuery();
 /*$sth = $db->query('SELECT `email` FROM `user` WHERE email = :email', [':email'=>$userName]);
 $result = $sth->fetchAll(PDO::FETCH_ASSOC);

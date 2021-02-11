@@ -8,7 +8,7 @@ class Connector
 
     private $password;
 
-    private $params = [];
+    private $params;
 
     public $db;
 
@@ -19,9 +19,9 @@ class Connector
 
     }
 
-    protected function runQuery($postName, $postPassword, Database $db, $inputParams = [])
+    protected function runQuery($postName, $postPassword, Database $db, $inputParams)
     {
-        $sth = $db->query('SELECT `password`,`id` FROM `user` where email = :email', $inputParams);
+        $sth = $db->query('SELECT `password`,`id` FROM `user` where email = ?', $inputParams);
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
         $resultPass = $result['0'];
         if ($postPassword != $resultPass['password']) {
@@ -35,14 +35,8 @@ class Connector
 
     protected function connectedRedirect($id)
     {
-        $tmp = md5($this->name.time().rand(0,999));
-        //md5($this->name.time().rand(0,999));
-        unset($_COOKIE['connected']);
-        setcookie('connected', $tmp , time()+3600 );
-        $_SESSION['connected'] = $tmp;
         $_SESSION['user_id'] = $id;
         $_SESSION['user'] = $this->name;
-        $_SESSION['password'] = $this->password;
         header("Location: index.php");
     }
 

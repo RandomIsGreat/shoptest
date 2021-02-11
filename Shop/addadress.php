@@ -3,17 +3,17 @@
     include_once 'classes/Connector.php';
     include_once 'classes/AdressCreator.php';
     session_start();
-    if (!isset($_COOKIE['connected'])) {
+    if (!isset($_SESSION['user_id'])) {
         include_once 'connector.php';
     }
     if (isset($_POST['city'])) {
         $params = [
-            ':city'=>$_POST['city'],
-            ':country'=>$_POST['country'],
-            ':street'=>$_POST['street'],
-            ':house_number'=>$_POST['house_number'],
-            ':apartment_number'=>$_POST['apartment_number'],
-            ':user_id'=>$_SESSION['user_id']
+            $_POST['city'],
+            $_POST['country'],
+            $_POST['street'],
+            $_POST['house_number'],
+            $_POST['apartment_number'],
+            $_SESSION['user_id']
         ];
         $db = Database::getInstance();
         $adress = new AdressCreator($_SESSION['user'], $_SESSION['password'], $db, $params);

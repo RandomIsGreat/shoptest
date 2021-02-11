@@ -1,13 +1,13 @@
 <?php
 include_once 'classes/Database.php';
 session_start();
-if (!isset($_COOKIE['connected'])) {
+if (!isset($_SESSION['user_id'])) {
     include_once 'connector.php';
-} else if ($_SESSION['connected'] != $_COOKIE['connected']) {
+} /*else if ($_SESSION['connected'] != $_COOKIE['connected']) {
     include_once 'connector.php';
 }
 echo $_SESSION['connected'].' '.$_COOKIE['connected'];
-$db = Database::getInstance();
+*/$db = Database::getInstance();
 if (!isset($_GET['to'])) {
     $goodOnPage=[
             ':startfor'=>0,

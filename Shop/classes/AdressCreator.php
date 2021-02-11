@@ -10,7 +10,7 @@ class AdressCreator extends Connector
         $tmp = $result['0'];*/
         $id[':user'] = $_SESSION['user_id'];
         $db->query('INSERT INTO `adress` (city, country, street, house_number, apartment_number, user_id)
-                         VALUES (:city, :country, :street, :house_number, :apartment_number, :user_id)', $inputParams);
+                         VALUES (?, ?, ?, ?, ?, ?)', $inputParams);
         /*$sth = $db->query('SELECT `id` FROM `adress` ORDER BY create_on DESC LIMIT 1',[]);
         $result =$sth->fetchAll();
         $tmp = $result['0'];

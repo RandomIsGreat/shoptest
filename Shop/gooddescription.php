@@ -1,23 +1,21 @@
 <?php
 include_once 'classes/Database.php';
 session_start();
-if (!isset($_COOKIE['connected'])) {
-    include_once 'connector.php';
-} else if ($_SESSION['connected'] != $_COOKIE['connected']) {
+if (!isset($_SESSION['user_id'])) {
     include_once 'connector.php';
 }
 //по гету передается номер товара, который выводится
 $db = Database::getInstance();
 $sth = $db->query('SELECT good.name, category.name As category_name, good.description, good.price FROM `good` 
                        INNER JOIN `category` ON good.category_id = category.id 
-                       WHERE good.id = :id', [':id'=>$_GET['id']]);
+                       WHERE good.id = ?', [$_GET['id']]);
 $good = $sth->fetchAll(PDO::FETCH_ASSOC);
 
 $sth = $db->query('SELECT user.email, comment.id, comment.comment, comment.rating FROM comment
-                      INNER JOIN `user` ON comment.user_id = user.id WHERE comment.good_id = :id
-                      ORDER BY comment.create_on DESC',[':id'=>$_GET['id']]);
+                      INNER JOIN `user` ON comment.user_id = user.id WHERE comment.good_id = ?
+                      ORDER BY comment.create_on DESC',[$_GET['id']]);
 $comments = $sth->fetchAll(PDO::FETCH_ASSOC);
-$sth = $db->query('SELECT AVG(comment.rating) as avgrating FROM comment WHERE comment.good_id = :id', [':id'=>$_GET['id']]);
+$sth = $db->query('SELECT AVG(comment.rating) as avgrating FROM comment WHERE comment.good_id = ?', [$_GET['id']]);
 $avgRating = $sth->fetchAll(PDO::FETCH_ASSOC);
 /*$i = 0;
 foreach ($comments as $item) {

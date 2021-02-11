@@ -1,11 +1,11 @@
 <?php
     include_once 'classes/Database.php';
     session_start();
-    if (!isset($_COOKIE['connected']) && ($_SESSION['connected']) !== $_COOKIE['connected']) {
+    if (!isset($_SESSION['user_id'])) {
         include_once 'connector.php';
     }
     $db = Database::getInstance();
-    $sth = $db->query('SELECT id from `user` where email = :name',[':name'=>$_SESSION['user']]);
+   /* $sth = $db->query('SELECT id from `user` where email = :name',[':name'=>$_SESSION['user']]);
     $result = $sth->fetchAll(PDO::FETCH_ASSOC);
     $id[':user_id'] = $result[0]['id'];
     $sth = $db->query('SELECT order_id FROM `user_order` WHERE user_id = :user_id ORDER BY order_id DESC LIMIT 1',$id);
@@ -58,7 +58,8 @@
     ];
     $db->query('INSERT INTO `current_order` (current_order_id, name, description, price) 
                                 VALUES (:current_order_id, :name, :description, :price)', $addToOrder);
-    header('Location: index.php');
+    header('Location: index.php');*/
+
     //по идее тут нужн описать класс, который бы добавил через значение нужный айтем в ордер что-то типа
     // SELECT name, description, price FROM `good` WHERE id = :id, [':id'=>$_GET['id']];
     // бахнуть это в асс массив и потом заинсертить с известным значением куррент_ордера
