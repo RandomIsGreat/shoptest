@@ -56,5 +56,6 @@ if (isset($_FILES['pic']))
         <input type="file" name="pic">
         <button>Upload</button>
     </form>
+    <div><a href="index.php">На главную</a><br></div>
     </body>
 </html>

@@ -17,19 +17,7 @@ $sth = $db->query('SELECT user.email, comment.id, comment.comment, comment.ratin
 $comments = $sth->fetchAll(PDO::FETCH_ASSOC);
 $sth = $db->query('SELECT AVG(comment.rating) as avgrating FROM comment WHERE comment.good_id = ?', [$_GET['id']]);
 $avgRating = $sth->fetchAll(PDO::FETCH_ASSOC);
-/*$i = 0;
-foreach ($comments as $item) {
 
-    $id[$i] = $item['id'];
-    $i++;
-}
-$c = 0;
-foreach ($id as $item) {
-    $sth = $db->query('SELECT user.email FROM `user` INNER JOIN `user_comment` ON user.id = user_comment.user.id WHERE comment_id = :id', [':id'=>$item]);
-    $temp = $sth->fetchAll(PDO::FETCH_ASSOC);
-    $comments[$c]['email'] = $temp[$c]['email'];
-    $c++;
-}*/
 ?>
 
 <html>

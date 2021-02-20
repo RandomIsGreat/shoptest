@@ -39,5 +39,6 @@ $summary = $sth->fetchAll(PDO::FETCH_ASSOC);
         <td>Итоговая цена: <?= $summary[0]['summary'] ?></td>
     </tr>
 </table>
+<div><a href="index.php">На главную</a><br></div>
 </body>
 </html>

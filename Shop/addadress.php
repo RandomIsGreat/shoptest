@@ -36,5 +36,6 @@
         <p>Номер квартиры</p><input type="text" name="apartment_number"><br>
         <input type="submit" value="Добавить адрес"><br>
     </form>
+    <div><a href="index.php">На главную</a><br></div>
 </body>
 </html>

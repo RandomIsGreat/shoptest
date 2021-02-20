@@ -58,5 +58,6 @@ $result = $goods->fetchAll(PDO::FETCH_ASSOC);
 <div><a href="index.php?to=<?=$goodOnPage[':startfor']+5 ?>">Следующие 5 товаров</a><br></div>
 <div><a href="addadress.php">Добавить адрес для доставки</a><br></div>
 <div><a href="conformorder.php">Перейти в корзину</a></div>
+<div><a href="profile.php">Профиль</a></div>
 </body>
 </html>
