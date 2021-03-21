@@ -3,7 +3,7 @@
 
 class Database
 {
-    private static $instances = [];
+    private static $instance;
 
     private $pdo;
 
@@ -13,13 +13,10 @@ class Database
     static public function getInstance()
 
     {
-        $className = static::class;
-        if (!isset(self::$instances[$className])) {
-            self::$instances[$className] = new static();
-
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
         }
-
-        return self::$instances[$className];
+        return self::$instance;
     }
 
     /**
